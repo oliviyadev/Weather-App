@@ -6,19 +6,20 @@ const api = {
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuery);
 
+// looks for user to hit enter
 function setQuery(event) {
   if (event.keyCode == 13) {
     getResults(searchbox.value);
   }
 }
-
+// makes api call
 function getResults(query) {
   fetch(`${api.baseurl}weather?q=${query}&units=metric&APPID=${api.key}`)
   .then(weather => {
     return weather.json();
   }).then(displayResults);
 }
-
+// displays weather from api call
 function displayResults (weather) {
   console.log(weather);
   let city = document.querySelector('.location .city');
@@ -36,7 +37,7 @@ function displayResults (weather) {
   let hilow = document.querySelector('.current .hi-low');
   hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
 }
-
+// constructs the current date in user-inputted location
 function dateBuilder (d) {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const days = ["Sun","Mon","Tues","Wed","thurs","Fri","Sat"];
